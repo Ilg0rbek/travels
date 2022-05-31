@@ -54,8 +54,44 @@ const addTravelBook = async (req, res) => {
     }
 }
 
+//Method:  PUT
+//Desc:    Edit travel book by ID
+const updateTravelBook = async (req, res) => {
+    try {
+        const { title, image, desc } = req.body
+
+        const updateTravel = Travel.findByIdAndUpdate(req.params.id, {
+            title,
+            image,
+            desc
+        })
+
+        res.status(200).json({
+            messgae: 'success',
+            updateTravel
+        })
+    } catch (error) {
+        res.send(error.message)
+    }
+}
+
+//Method:  DELETE
+//Desc:    Delete travel book by ID
+const deleteTravelBook = async (req, res) => {
+    try {
+        const deleteTravel = Travel.findByIdAndDelete(req.params.id)
+        res.status(200).json({
+            messgae: 'success delete',
+        })
+    } catch (error) {
+        res.send(error.message)
+    }
+}
+
 module.exports = {
     getAllTravels,
     getTravelById,
-    addTravelBook
+    addTravelBook,
+    updateTravelBook,
+    deleteTravelBook
 }
